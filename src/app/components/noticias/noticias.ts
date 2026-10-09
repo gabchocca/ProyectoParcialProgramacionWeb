@@ -5,6 +5,7 @@ interface Noticia {
   titulo: string;
   categoria: string;
   descripcion: string;
+  enlace: string;
 }
 
 @Component({
@@ -14,25 +15,28 @@ interface Noticia {
   templateUrl: './noticias.html',
 })
 export class Noticias {
-  
-categoriaSeleccionada: string = 'Todas';
+
+  categoriaSeleccionada: string = 'Todas';
   terminoActual: string = '';
 
   noticias: Noticia[] = [
     {
       titulo: 'Inicio del ciclo académico',
       categoria: 'Académicas',
-      descripcion: 'Información sobre el inicio de las clases universitarias.'
+      descripcion: 'Información sobre el inicio de las clases universitarias.',
+      enlace: 'https://www.continental.edu.pe'
     },
     {
       titulo: 'Conferencia de tecnología',
       categoria: 'Eventos',
-      descripcion: 'Participa en las conferencias y actividades tecnológicas.'
+      descripcion: 'Participa en las conferencias y actividades tecnológicas.',
+      enlace: 'https://www.continental.edu.pe'
     },
     {
       titulo: 'Nuevos servicios universitarios',
       categoria: 'Institucionales',
-      descripcion: 'Conoce los nuevos servicios para los estudiantes.'
+      descripcion: 'Conoce los nuevos servicios para los estudiantes.',
+      enlace: 'https://www.continental.edu.pe'
     }
   ];
 
@@ -45,7 +49,7 @@ categoriaSeleccionada: string = 'Todas';
     ];
   }
 
-  get noticiasFiltradasPorCategoria(): Noticia[] {
+  get noticiasFiltradas(): Noticia[] {
     const termino = this.terminoActual.trim().toLowerCase();
 
     return this.noticias.filter(noticia => {
