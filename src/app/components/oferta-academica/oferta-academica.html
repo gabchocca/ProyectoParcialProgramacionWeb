@@ -1,1 +1,57 @@
-<p>oferta-academica works!</p>
+<section id="carreras" class="container py-5">
+  <div class="text-center mb-4">
+    <h2 class="display-6 fw-bold text-primary">Oferta académica</h2>
+    <p class="text-secondary">Encuentra la carrera que te interesa.</p>
+  </div>
+
+  <div class="row justify-content-center mb-4">
+    <div class="col-md-8 col-lg-6">
+      <label for="buscarCarrera" class="form-label"> Buscar por carrera o área </label>
+
+      <div class="input-group">
+        <input
+          id="buscarCarrera"
+          type="search"
+          class="form-control"
+          placeholder="Ej. Sistemas, Negocios..."
+          [(ngModel)]="busqueda"
+        />
+
+        <button class="btn btn-outline-primary" type="button" (click)="limpiarBusqueda()">
+          Limpiar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    @for (carrera of carrerasFiltradas; track carrera.nombre) {
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm">
+          <img [src]="carrera.imagen" [alt]="carrera.nombre" class="card-img-top" />
+
+          <div class="card-body">
+            <span class="badge text-bg-primary">{{ carrera.area }}</span>
+            <h3 class="h5 mt-2">{{ carrera.nombre }}</h3>
+            <p class="text-secondary">{{ carrera.descripcion }}</p>
+
+            <a
+              [href]="carrera.enlace"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-primary"
+            >
+              Consultar información
+            </a>
+          </div>
+        </div>
+      </div>
+    } @empty {
+      <div class="col-12">
+        <div class="alert alert-info">
+          No encontramos carreras con ese nombre. Prueba con otro término.
+        </div>
+      </div>
+    }
+  </div>
+</section>

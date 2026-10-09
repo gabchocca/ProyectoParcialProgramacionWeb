@@ -1,1 +1,74 @@
-<p>noticias works!</p>
+
+<section id="noticias" class="bg-light py-5">
+  <div class="container">
+    <div class="row g-3 align-items-end mb-4">
+      <div class="col-lg-7">
+        <span class="text-primary fw-bold">ACTUALIDAD</span>
+        <h2 class="display-6 fw-bold mt-2">Noticias y novedades</h2>
+        <p class="text-secondary">
+          Información de interés para la comunidad universitaria.
+        </p>
+      </div>
+
+      <div class="col-lg-5">
+        <label for="busquedaNoticias" class="form-label">
+          Buscar por título o categoría
+        </label>
+        <input
+          id="busquedaNoticias"
+          type="search"
+          class="form-control form-control-lg"
+          placeholder="Ej. aula virtual, eventos..."
+          (input)="buscar($event)">
+      </div>
+    </div>
+
+    <div class="row g-4">
+      @for (noticia of noticiasFiltradas; track noticia.titulo) {
+        <div class="col-md-6 col-lg-4">
+          <article class="card h-100 shadow-sm">
+            <div class="card-body">
+              <span class="badge text-bg-primary mb-3">
+                {{ noticia.categoria }}
+              </span>
+
+              <h3 class="h5">{{ noticia.titulo }}</h3>
+              <p class="text-secondary">{{ noticia.descripcion }}</p>
+
+              <a
+                [href]="noticia.enlace"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn-outline-primary">
+                Leer más
+              </a>
+            </div>
+          </article>
+        </div>
+      } @empty {
+        <div class="col-12">
+          <div class="alert alert-info">
+            No se encontraron noticias. Prueba con otra palabra.
+          </div>
+        </div>
+      }
+    </div>
+
+    <p class="small text-secondary mt-3">
+      Algunas publicaciones son demostrativas. Consulta las fuentes
+      oficiales para verificar las novedades.
+    </p>
+  </div>
+</section>
+
+<div class="d-flex flex-wrap gap-2 mb-4">
+  @for (categoria of categorias; track categoria) {
+    <button
+      class="btn btn-sm"
+      [class.btn-primary]="categoriaSeleccionada === categoria"
+      [class.btn-outline-primary]="categoriaSeleccionada !== categoria"
+      (click)="seleccionarCategoria(categoria)">
+      {{ categoria }}
+    </button>
+  }
+</div>
