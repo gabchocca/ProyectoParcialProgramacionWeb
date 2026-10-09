@@ -1,47 +1,73 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+interface Noticia {
+  titulo: string;
+  categoria: string;
+  descripcion: string;
+}
 
 @Component({
-  imports: [],
+  imports: [CommonModule],
   selector: 'app-noticias',
   styleUrl: './noticias.css',
   templateUrl: './noticias.html',
 })
 export class Noticias {
   
-categoriaSeleccionada = 'Todas';
+categoriaSeleccionada: string = 'Todas';
+  terminoActual: string = '';
 
-get categorias(): string[] {
-  return [
-    'Todas',
-    ...new Set(this.noticias.map(noticia => noticia.categoria))
+  noticias: Noticia[] = [
+    {
+      titulo: 'Inicio del ciclo académico',
+      categoria: 'Académicas',
+      descripcion: 'Información sobre el inicio de las clases universitarias.'
+    },
+    {
+      titulo: 'Conferencia de tecnología',
+      categoria: 'Eventos',
+      descripcion: 'Participa en las conferencias y actividades tecnológicas.'
+    },
+    {
+      titulo: 'Nuevos servicios universitarios',
+      categoria: 'Institucionales',
+      descripcion: 'Conoce los nuevos servicios para los estudiantes.'
+    }
   ];
-}
 
-get noticiasFiltradasPorCategoria(): Noticia[] {
-  const termino = this.terminoActual.trim().toLowerCase();
+  get categorias(): string[] {
+    return [
+      'Todas',
+      ...new Set(
+        this.noticias.map(noticia => noticia.categoria)
+      )
+    ];
+  }
 
-  return this.noticias.filter(noticia => {
-    const coincideTexto =
-      `${noticia.titulo} ${noticia.categoria} ${noticia.descripcion}`
-        .toLowerCase()
-        .includes(termino);
+  get noticiasFiltradasPorCategoria(): Noticia[] {
+    const termino = this.terminoActual.trim().toLowerCase();
 
-    const coincideCategoria =
-      this.categoriaSeleccionada === 'Todas' ||
-      noticia.categoria === this.categoriaSeleccionada;
+    return this.noticias.filter(noticia => {
+      const coincideTexto =
+        `${noticia.titulo} ${noticia.categoria} ${noticia.descripcion}`
+          .toLowerCase()
+          .includes(termino);
 
-    return coincideTexto && coincideCategoria;
-  });
-}
+      const coincideCategoria =
+        this.categoriaSeleccionada === 'Todas' ||
+        noticia.categoria === this.categoriaSeleccionada;
 
-terminoActual = '';
+      return coincideTexto && coincideCategoria;
+    });
+  }
 
-buscar(evento: Event): void {
-  const entrada = evento.target as HTMLInputElement;
-  this.terminoActual = entrada.value;
-}
+  buscar(evento: Event): void {
+    const entrada = evento.target as HTMLInputElement;
+    this.terminoActual = entrada.value;
+  }
 
-seleccionarCategoria(categoria: string): void {
-  this.categoriaSeleccionada = categoria;
-}
+  seleccionarCategoria(categoria: string): void {
+    this.categoriaSeleccionada = categoria;
+  }
 }
