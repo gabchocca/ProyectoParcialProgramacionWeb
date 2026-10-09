@@ -1,1 +1,45 @@
-<p>facultades works!</p>
+<section id="facultades" class="container py-5">
+    <h2 class="display-6 fw-bold text-primary text-center">
+        Facultades y áreas académicas
+    </h2>
+
+    <div class="d-flex flex-wrap justify-content-center gap-2 my-4">
+        <button class="btn" [class.btn-primary]="areaSeleccionada === 'Todas'"
+            [class.btn-outline-primary]="areaSeleccionada !== 'Todas'" (click)="filtrar('Todas')">
+            Todas
+        </button>
+
+        <button class="btn" [class.btn-primary]="areaSeleccionada === 'Ingeniería'"
+            [class.btn-outline-primary]="areaSeleccionada !== 'Ingeniería'" (click)="filtrar('Ingeniería')">
+            Ingeniería
+        </button>
+
+        <button class="btn" [class.btn-primary]="areaSeleccionada === 'Negocios'"
+            [class.btn-outline-primary]="areaSeleccionada !== 'Negocios'" (click)="filtrar('Negocios')">
+            Negocios
+        </button>
+
+        <button class="btn" [class.btn-primary]="areaSeleccionada === 'Derecho'"
+            [class.btn-outline-primary]="areaSeleccionada !== 'Derecho'" (click)="filtrar('Derecho')">
+            Derecho
+        </button>
+
+        <button class="btn" [class.btn-primary]="areaSeleccionada === 'Salud'"
+            [class.btn-outline-primary]="areaSeleccionada !== 'Salud'" (click)="filtrar('Salud')">
+            Salud
+        </button>
+    </div>
+
+    <div class="row g-3">
+        @for (facultad of facultadesFiltradas; track facultad.nombre) {
+        <div class="col-md-6 col-lg-3">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h3 class="h5 text-primary">{{ facultad.nombre }}</h3>
+                    <p class="text-secondary mb-0">{{ facultad.descripcion }}</p>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</section>

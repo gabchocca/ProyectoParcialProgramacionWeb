@@ -1,1 +1,74 @@
-<p>contacto works!</p>
+<section id="contacto" class="container py-5">
+    <div class="row g-4">
+        <div class="col-lg-5">
+            <h2 class="display-6 fw-bold text-primary">Contáctanos</h2>
+            <p class="text-secondary">
+                Completa el formulario para preparar tu consulta.
+            </p>
+            <a href="https://ucontinental.edu.pe/" target="_blank" rel="noopener noreferrer"
+                class="btn btn-outline-primary">
+                Visitar web oficial
+            </a>
+        </div>
+
+        <div class="col-lg-7">
+            <form #formulario="ngForm" (ngSubmit)="enviarFormulario()" class="card shadow-sm">
+                <div class="card-body p-4">
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre completo</label>
+                        <input id="nombre" name="nombre" class="form-control" [(ngModel)]="nombre" required
+                            minlength="2" #campoNombre="ngModel">
+
+                        @if (campoNombre.invalid && campoNombre.touched) {
+                        <div class="text-danger small mt-1">
+                            Ingresa tu nombre.
+                        </div>
+                        }
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="correo" class="form-label">Correo electrónico</label>
+                        <input id="correo" name="correo" type="email" class="form-control" [(ngModel)]="correo" required
+                            email #campoCorreo="ngModel">
+
+                        @if (campoCorreo.invalid && campoCorreo.touched) {
+                        <div class="text-danger small mt-1">
+                            Ingresa un correo válido.
+                        </div>
+                        }
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="consulta" class="form-label">Tu consulta</label>
+                        <textarea id="consulta" name="consulta" class="form-control" rows="4" [(ngModel)]="consulta"
+                            required minlength="10" #campoConsulta="ngModel"></textarea>
+
+                        @if (campoConsulta.invalid && campoConsulta.touched) {
+                        <div class="text-danger small mt-1">
+                            Escribe una consulta de al menos 10 caracteres.
+                        </div>
+                        }
+                    </div>
+
+                    <div class="d-flex flex-wrap gap-2">
+                        <button type="submit" class="btn btn-primary" [disabled]="formulario.invalid">
+                            Validar consulta
+                        </button>
+
+                        <button type="button" class="btn btn-outline-secondary"
+                            (click)="limpiarFormulario(); formulario.resetForm()">
+                            Limpiar
+                        </button>
+                    </div>
+
+                    @if (mensaje) {
+                    <div class="alert mt-3 mb-0" [class.alert-success]="enviado" [class.alert-danger]="!enviado"
+                        role="status">
+                        {{ mensaje }}
+                    </div>
+                    }
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

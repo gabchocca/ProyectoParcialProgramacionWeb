@@ -1,1 +1,39 @@
-<p>admision works!</p>
+<section id="admision" class="container py-5">
+    <div class="card border-0 bg-warning-subtle">
+        <div class="card-body p-4 p-lg-5 text-center">
+            <h2 class="display-6 fw-bold">¡Empieza tu futuro profesional!</h2>
+
+            <p class="lead">
+                Conoce los pasos para informarte sobre el proceso de admisión.
+            </p>
+
+            <button class="btn btn-primary btn-lg" (click)="cambiarPasos()" [attr.aria-expanded]="mostrarPasos">
+                {{ mostrarPasos ? 'Ocultar pasos' : 'Ver pasos de admisión' }}
+            </button>
+
+            @if (mostrarPasos) {
+            <div class="card mt-4 text-start">
+                <div class="card-body">
+                    <h3 class="h5">Pasos informativos</h3>
+
+                    <ol class="mb-3">
+                        @for (paso of pasos; track paso) {
+                        <li class="mb-2">{{ paso }}</li>
+                        }
+                    </ol>
+
+                    <p class="small text-secondary">
+                        Estos son pasos orientativos. Confirma los requisitos,
+                        fechas y procedimientos vigentes en el canal oficial.
+                    </p>
+
+                    <a href="https://ucontinental.edu.pe/" target="_blank" rel="noopener noreferrer"
+                        class="btn btn-outline-primary">
+                        Consultar sitio oficial
+                    </a>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</section>
